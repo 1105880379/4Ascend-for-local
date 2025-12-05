@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4Ascend Local</title>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; background-color: #000; }
+        #unity-canvas { width: 100vw; height: 100vh; display: block; }
+    </style>
+</head>
+<body>
+    <canvas id="unity-canvas"></canvas>
+    <script src="webgl.loader.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('unity-canvas');
+            
+            // 配置本地资源路径
+            const config = {
+                dataUrl: 'webgl.data.gz',
+                frameworkUrl: 'webgl.framework.js.gz',
+                codeUrl: 'webgl.wasm.gz',
+                streamingAssetsUrl: 'StreamingAssets',
+                companyName: 'Unity Technologies',
+                productName: '4Ascend',
+                productVersion: '1.0',
+            };
+            
+            // 加载进度回调
+            const progressCallback = (progress) => {
+                console.log(`Loading progress: ${Math.round(progress * 100)}%`);
+            };
+            
+            // 创建Unity实例
+            createUnityInstance(canvas, config, progressCallback)
+                .then((unityInstance) => {
+                    console.log('Unity instance created successfully');
+                    // 可以在这里添加游戏控制逻辑
+                })
+                .catch((error) => {
+                    console.error('Error creating Unity instance:', error);
+                    alert('Failed to load the game. Please check the console for details.');
+                });
+        });
+    </script>
+</body>
+</html>
